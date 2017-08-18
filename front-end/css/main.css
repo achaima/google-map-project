@@ -1,0 +1,15 @@
+#map {
+       width: 100%;
+       height: 420px;
+       background-color: grey;
+     }
+
+.btn-primary{
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+
+tr:hover {
+  background-color: lightgray;
+}

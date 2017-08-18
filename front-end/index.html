@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+
+<!--CSS & BOOTSTRAP-->
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet"         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+<!--GOOGLE MAPS-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7rDahnDxnim6QRYxHwOIY4VLz_2vXbmg&callback=initMap"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Document</title>
+ </head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+
+      <form id="form" class="col-md-5">
+
+            <label for="example-text-input"
+                   class="col-form-label"
+                   name="name">Name
+            </label>
+              <input class="form-control"
+                     type="text"
+                     id="name">
+
+            <label for="example-email-input"
+                   class="col-form-label"
+                   name="email">Email
+            </label>
+              <input class="form-control"
+                     type="email"
+                     id="email">
+
+            <label for="example-text-input"
+                   class="col-form-label"
+                   name="description">Description
+            </label>
+              <input class="form-control"
+                     type="text"
+                     id="description">
+
+
+            <label for="example-text-input"
+                   class="col-form-label">Latitude
+            </label>
+              <input class="form-control"
+                     type="text"
+                     id="latitude">
+
+            <label for="example-text-input"
+                   class="col-form-label">Longitude
+            </label>
+              <input class="form-control"
+                     type="text"
+                     id="longitude">
+
+          <button class="btn btn-primary"
+                  onclick="myFunction(); changeMapPosition()">Submit
+          </button>
+
+      </form>
+
+    <div id="map" class="col-md-7"></div>
+
+  </div>
+
+  <table class="table table-sm" id="table">
+      <thead class="thead-default">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Description</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+  </table>
+
+</div>
+
+
+  <script>
+
+        function initMap() {
+          var uluru = {lat: 51.5074, lng: 0.1278};
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: uluru
+          });
+        }
+
+        function myFunction() {
+          var form = document.getElementById("form");
+          var table = document.getElementById("table");
+          row = table.insertRow(1);
+          var name = row.insertCell(0);
+          var email = row.insertCell(1);
+          var description = row.insertCell(2);
+          var longitude = row.insertCell(3);
+          var latitude = row.insertCell(4);
+          name.innerHTML = form[0].value;
+          name.innerHTML= form[2].value;
+          email.innerHTML = form[1].value;
+          description.innerHTML = form[2].value;
+          latitude.innerHTML = form[3].value;
+          longitude.innerHTML = form[4].value;
+
+        }
+
+        function changeMapPosition(marker) {
+          var ulurlu = {lat: parseInt(form[3].value), lng: parseInt(form[4].value)};
+          var contentString = `${form[0].value} </br> ${form[2].value}`;
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+          var marker = new google.maps.Marker({
+            position: ulurlu,
+            map: map,
+            name: form[0].value,
+            desc: form[2].value,
+            lat: form[3].value,
+            lng: form[4].value,
+          });
+
+          marker.setMap(map);
+          map.panTo({lat: parseInt(form[3].value), lng: parseInt(form[4].value)});
+
+          marker.addListener('click', function() {
+             infowindow.open(map, marker);
+          });
+
+          row.addEventListener('mouseover', function(){
+            map.panTo({lat: parseInt(marker.lat), lng: parseInt(marker.lng)});
+          });
+        }
+  </script>
+
+ </body>
+</html>
