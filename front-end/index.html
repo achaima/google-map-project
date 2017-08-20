@@ -20,7 +20,7 @@
 <div class="container-fluid">
   <div class="row">
 
-      <form id="form" class="col-md-5">
+      <form id="form" name="form" class="col-md-5">
 
             <label for="example-text-input"
                    class="col-form-label"
@@ -116,6 +116,8 @@
 
         }
 
+
+
         function changeMapPosition(marker) {
           var ulurlu = {lat: parseInt(form[3].value), lng: parseInt(form[4].value)};
           var contentString = `${form[0].value} </br> ${form[2].value}`;
@@ -142,6 +144,8 @@
           row.addEventListener('mouseover', function(){
             map.panTo({lat: parseInt(marker.lat), lng: parseInt(marker.lng)});
           });
+
+          document.forms['form'].reset()
         }
   </script>
 
