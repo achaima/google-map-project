@@ -61,7 +61,8 @@
                      type="text"
                      id="longitude">
 
-          <button class="btn btn-primary"
+          <button type ="button"
+                  class="btn btn-primary"
                   onclick="myFunction(); changeMapPosition()">Submit
           </button>
 
@@ -91,7 +92,7 @@
   <script>
         function initMap() {
           var uluru = {lat: 51.5074, lng: 0.1278};
-          map = new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById("map"), {
             zoom: 6,
             center: uluru
           });
