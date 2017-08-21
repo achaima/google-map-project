@@ -63,7 +63,7 @@
 
           <button type ="button"
                   class="btn btn-primary"
-                  onclick="myFunction(); changeMapPosition()">Submit
+                  onclick="submitForm()">Submit
           </button>
 
       </form>
@@ -72,20 +72,21 @@
 
   </div>
 
-  <table class="table table-sm" id="table">
-      <thead class="thead-default">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Description</th>
-          <th>Longitude</th>
-          <th>Latitude</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-  </table>
-
+    <div class="col-md-8">
+      <table class="table table-sm " id="table">
+          <thead class="thead-default">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Description</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+    </div>
 </div>
 
 
@@ -98,26 +99,38 @@
           });
         }
 
-        function myFunction() {
+        function validateForm() {
+          if(form[0].value === '' || form[1].value === '' || form[2].value === '' || !/\d+/.test(form[3].value) || !/\d+/.test(form[4].value)) {
+            return false;
+          } else if(form[3].value > 85.05115 || form[3].value < -85.05115 || form[4].value > 180 || form[4].value < -180)
+          {
+            return false;
+          } else {
+            return true;
+          }
+      }
+
+        function submitForm() {
+          if(!validateForm()) return;
           var form = document.getElementById("form");
           var table = document.getElementById("table");
           row = table.insertRow(1);
           var name = row.insertCell(0);
           var email = row.insertCell(1);
           var description = row.insertCell(2);
-          var longitude = row.insertCell(3);
-          var latitude = row.insertCell(4);
+          var latitude = row.insertCell(3);
+          var longitude = row.insertCell(4);
           name.innerHTML = form[0].value;
           email.innerHTML = form[1].value;
           description.innerHTML = form[2].value;
           latitude.innerHTML = form[3].value;
           longitude.innerHTML = form[4].value;
-
+          changeMapPosition();
         }
 
 
 
-        function changeMapPosition(marker) {
+        function changeMapPosition() {
           var ulurlu = {lat: parseInt(form[3].value), lng: parseInt(form[4].value)};
           var contentString = `${form[0].value} </br> ${form[2].value}`;
           var infowindow = new google.maps.InfoWindow({
